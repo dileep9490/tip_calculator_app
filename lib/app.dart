@@ -11,10 +11,11 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: const TextTheme(
-            bodyText1:
-                TextStyle(fontFamily: 'MonoSpace', fontWeight: FontWeight.w700),
-            bodyText2: TextStyle(
-                fontFamily: 'MonoSpace', fontWeight: FontWeight.w400)),
+          bodyText1:
+              TextStyle(fontFamily: 'MonoSpace', fontWeight: FontWeight.w700),
+          bodyText2:
+              TextStyle(fontFamily: 'MonoSpace', fontWeight: FontWeight.w400),
+        ),
       ),
       home: const HomePage(),
     );
