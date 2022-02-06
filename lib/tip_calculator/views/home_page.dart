@@ -29,8 +29,7 @@ class _HomePageView extends StatelessWidget {
   final TextEditingController peopleController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    billcontroller.text = '0.00';
-    peopleController.text = '0';
+
     const Radius containerRadius = Radius.circular(20);
     return SingleChildScrollView(
       child: Column(

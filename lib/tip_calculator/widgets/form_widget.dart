@@ -30,6 +30,7 @@ class FormWidget extends StatelessWidget {
         ),
         TextFormField(
           decoration: InputDecoration(
+            hintText: '0',
             constraints: const BoxConstraints(maxHeight: 56),
             prefixIconConstraints: const BoxConstraints(
                 maxHeight: 20, maxWidth: 20, minHeight: 20, minWidth: 20),
