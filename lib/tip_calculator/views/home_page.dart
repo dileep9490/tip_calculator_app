@@ -40,12 +40,13 @@ class _HomePageViewState extends State<_HomePageView> {
   final TextEditingController peopleController = TextEditingController();
 
   int percentage = 0;
+  int id = 0;
 
-  @override
-  void initState() {
-    customController.text = 'Custom';
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   customController.text = 'Custom';
+  //   super.initState();
+  // }
 
   void caclulate() {
     if (billcontroller.text.isNotEmpty &&
@@ -69,6 +70,7 @@ class _HomePageViewState extends State<_HomePageView> {
     billcontroller.text = '0';
     customController.text = 'Custom';
     peopleController.text = '0';
+    id = 0;
   }
 
   @override
@@ -76,7 +78,8 @@ class _HomePageViewState extends State<_HomePageView> {
     void changePercentage(int val) {
       percentage = val;
       customController.text = 'Custom';
-
+      id = val;
+      setState(() {});
       caclulate();
     }
 
@@ -126,10 +129,12 @@ class _HomePageViewState extends State<_HomePageView> {
                             TableRow(
                               children: [
                                 PercentageButton(
+                                  id: id,
                                   title: '5',
                                   change: changePercentage,
                                 ),
                                 PercentageButton(
+                                  id: id,
                                   title: '10',
                                   change: changePercentage,
                                 )
@@ -138,10 +143,12 @@ class _HomePageViewState extends State<_HomePageView> {
                             TableRow(
                               children: [
                                 PercentageButton(
+                                  id: id,
                                   title: '15',
                                   change: changePercentage,
                                 ),
                                 PercentageButton(
+                                  id: id,
                                   title: '25',
                                   change: changePercentage,
                                 )
@@ -150,10 +157,12 @@ class _HomePageViewState extends State<_HomePageView> {
                             TableRow(
                               children: [
                                 PercentageButton(
+                                  id: id,
                                   title: '50',
                                   change: changePercentage,
                                 ),
                                 CustomButton(
+                                  changePercentage: changePercentage,
                                   onChange: caclulate,
                                   controller: customController,
                                 )

@@ -6,9 +6,11 @@ class PercentageButton extends StatelessWidget {
     Key? key,
     required this.title,
     required this.change,
+    required this.id,
   }) : super(key: key);
   final Function change;
   final String title;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,9 @@ class PercentageButton extends StatelessWidget {
               .copyWith(color: Colors.white, fontSize: 25),
         ),
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(veryDarkCyan),
+          backgroundColor: id == int.parse(title)
+              ? MaterialStateProperty.all(strongCyan)
+              : MaterialStateProperty.all(veryDarkCyan),
         ),
       ),
     );
