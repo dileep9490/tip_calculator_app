@@ -4,10 +4,14 @@ import '../../const.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton(
-      {Key? key, required this.controller, required this.onChange})
+      {Key? key,
+      required this.controller,
+      required this.onChange,
+      required this.changePercentage})
       : super(key: key);
   final Function onChange;
   final TextEditingController controller;
+  final Function changePercentage;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -32,7 +36,9 @@ class CustomButton extends StatelessWidget {
       onTap: () {
         if (controller.text == 'Custom') {
           controller.clear();
+          print('cleared');
         }
+    
       },
     );
   }

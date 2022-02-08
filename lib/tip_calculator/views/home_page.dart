@@ -42,11 +42,11 @@ class _HomePageViewState extends State<_HomePageView> {
   int percentage = 0;
   int id = 0;
 
-  // @override
-  // void initState() {
-  //   customController.text = 'Custom';
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    customController.text = 'Custom';
+    super.initState();
+  }
 
   void caclulate() {
     if (billcontroller.text.isNotEmpty &&
@@ -67,22 +67,27 @@ class _HomePageViewState extends State<_HomePageView> {
   }
 
   void reset() {
-    billcontroller.text = '0';
+    billcontroller.clear();
     customController.text = 'Custom';
-    peopleController.text = '0';
+    peopleController.clear();
     id = 0;
+  }
+
+  void changePercentage(int val) {
+    percentage = val;
+    customController.text = 'Custom';
+    id = val;
+    setState(() {});
+    caclulate();
+  }
+
+  void customSelected() {
+    id = 0;
+    customController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
-    void changePercentage(int val) {
-      percentage = val;
-      customController.text = 'Custom';
-      id = val;
-      setState(() {});
-      caclulate();
-    }
-
     const Radius containerRadius = Radius.circular(20);
     return SingleChildScrollView(
       child: Column(
@@ -162,7 +167,7 @@ class _HomePageViewState extends State<_HomePageView> {
                                   change: changePercentage,
                                 ),
                                 CustomButton(
-                                  changePercentage: changePercentage,
+                                  changePercentage: customSelected,
                                   onChange: caclulate,
                                   controller: customController,
                                 )
