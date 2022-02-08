@@ -7,11 +7,11 @@ class CustomButton extends StatelessWidget {
       {Key? key,
       required this.controller,
       required this.onChange,
-      required this.changePercentage})
+      required this.customSelected})
       : super(key: key);
   final Function onChange;
   final TextEditingController controller;
-  final Function changePercentage;
+  final Function customSelected;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -36,9 +36,8 @@ class CustomButton extends StatelessWidget {
       onTap: () {
         if (controller.text == 'Custom') {
           controller.clear();
-          print('cleared');
+          customSelected();
         }
-    
       },
     );
   }

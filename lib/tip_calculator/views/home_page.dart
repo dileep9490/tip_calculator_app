@@ -84,6 +84,7 @@ class _HomePageViewState extends State<_HomePageView> {
   void customSelected() {
     id = 0;
     customController.clear();
+    setState(() {});
   }
 
   @override
@@ -167,7 +168,7 @@ class _HomePageViewState extends State<_HomePageView> {
                                   change: changePercentage,
                                 ),
                                 CustomButton(
-                                  changePercentage: customSelected,
+                                  customSelected: customSelected,
                                   onChange: caclulate,
                                   controller: customController,
                                 )
