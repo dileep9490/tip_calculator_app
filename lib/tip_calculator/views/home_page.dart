@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tip_calculator_app/const.dart';
+import 'package:tip_calculator_app/tip_calculator/cubit/tipcalculator_cubit.dart';
 import 'package:tip_calculator_app/tip_calculator/widgets/form_widget.dart';
 import 'package:tip_calculator_app/tip_calculator/widgets/button_widget.dart';
 import 'package:tip_calculator_app/tip_calculator/widgets/custom_button.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/result_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -15,20 +16,69 @@ class HomePage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: lightGrayishCyan,
-        body: _HomePageView(),
+        body: BlocProvider(
+          create: (context) => TipCalculatorCubit(),
+          child: const _HomePageView(),
+        ),
       ),
     );
   }
 }
 
-class _HomePageView extends StatelessWidget {
-  _HomePageView({Key? key}) : super(key: key);
+class _HomePageView extends StatefulWidget {
+  const _HomePageView({Key? key}) : super(key: key);
 
+  @override
+  State<_HomePageView> createState() => _HomePageViewState();
+}
+
+class _HomePageViewState extends State<_HomePageView> {
   final TextEditingController billcontroller = TextEditingController();
+
   final TextEditingController customController = TextEditingController();
+
   final TextEditingController peopleController = TextEditingController();
+
+  int percentage = 0;
+
+  @override
+  void initState() {
+    customController.text = 'Custom';
+    super.initState();
+  }
+
+  void caclulate() {
+    if (billcontroller.text.isNotEmpty &&
+        customController.text.isNotEmpty &&
+        peopleController.text.isNotEmpty) {
+      double bill = double.parse(billcontroller.text);
+      int count = int.parse(peopleController.text);
+      int customPercentage;
+      try {
+        customPercentage = int.parse(customController.text);
+      } catch (e) {
+        customPercentage = 0;
+      }
+      int _percentage = customPercentage != 0 ? customPercentage : percentage;
+
+      context.read<TipCalculatorCubit>().calculate(bill, _percentage, count);
+    }
+  }
+
+  void reset() {
+    billcontroller.text = '0';
+    customController.text = 'Custom';
+    peopleController.text = '0';
+  }
+
   @override
   Widget build(BuildContext context) {
+    void changePercentage(int val) {
+      percentage = val;
+      customController.text = 'Custom';
+
+      caclulate();
+    }
 
     const Radius containerRadius = Radius.circular(20);
     return SingleChildScrollView(
@@ -53,6 +103,7 @@ class _HomePageView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FormWidget(
+                      onChange: caclulate,
                       title: 'Bill',
                       controller: billcontroller,
                       prefixIconPath: 'assets/images/icon-dollar.svg',
@@ -72,23 +123,39 @@ class _HomePageView extends StatelessWidget {
                         ),
                         Table(
                           children: [
-                            const TableRow(
+                            TableRow(
                               children: [
-                                PercentageButton(title: '5%'),
-                                PercentageButton(title: '10%')
-                              ],
-                            ),
-                            const TableRow(
-                              children: [
-                                PercentageButton(title: '15%'),
-                                PercentageButton(title: '25%')
+                                PercentageButton(
+                                  title: '5',
+                                  change: changePercentage,
+                                ),
+                                PercentageButton(
+                                  title: '10',
+                                  change: changePercentage,
+                                )
                               ],
                             ),
                             TableRow(
                               children: [
-                                const PercentageButton(title: '50%'),
+                                PercentageButton(
+                                  title: '15',
+                                  change: changePercentage,
+                                ),
+                                PercentageButton(
+                                  title: '25',
+                                  change: changePercentage,
+                                )
+                              ],
+                            ),
+                            TableRow(
+                              children: [
+                                PercentageButton(
+                                  title: '50',
+                                  change: changePercentage,
+                                ),
                                 CustomButton(
-                                  customController: customController,
+                                  onChange: caclulate,
+                                  controller: customController,
                                 )
                               ],
                             ),
@@ -98,11 +165,14 @@ class _HomePageView extends StatelessWidget {
                           height: 10,
                         ),
                         FormWidget(
+                          onChange: caclulate,
                           title: 'Number of People',
                           controller: peopleController,
                           prefixIconPath: 'assets/images/icon-person.svg',
                         ),
-                       const ResultWidget()
+                        ResultWidget(
+                          reset: reset,
+                        )
                       ],
                     ),
                   ],

@@ -8,11 +8,13 @@ class FormWidget extends StatelessWidget {
       {Key? key,
       required this.controller,
       required this.prefixIconPath,
-      required this.title})
+      required this.title,
+      required this.onChange})
       : super(key: key);
   final String prefixIconPath;
   final TextEditingController controller;
   final String title;
+  final Function onChange;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -51,7 +53,12 @@ class FormWidget extends StatelessWidget {
           textAlign: TextAlign.right,
           keyboardType: TextInputType.number,
           onChanged: (value) {
-            //TODO:implement this
+            onChange();
+          },
+          onTap: () {
+            if (controller.text == '0') {
+              controller.clear();
+            }
           },
         ),
       ],

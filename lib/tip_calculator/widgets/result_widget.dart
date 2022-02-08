@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tip_calculator_app/const.dart';
+import 'package:tip_calculator_app/tip_calculator/cubit/tipcalculator_cubit.dart';
 
 class ResultWidget extends StatelessWidget {
-  const ResultWidget({Key? key}) : super(key: key);
-
+  ResultWidget({
+    Key? key,
+    required this.reset,
+  }) : super(key: key);
+  final Function reset;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,13 +44,16 @@ class ResultWidget extends StatelessWidget {
                       .copyWith(color: lightGrayishCyan, fontSize: 14),
                 )
               ]),
-              Text(
-                '\$4.546',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: 26, color: strongCyan),
-              )
+              BlocBuilder<TipCalculatorCubit, TipCaclulatorState>(
+                  builder: ((context, state) {
+                return Text(
+                  '\$${state.tipPerPerson}',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 26, color: strongCyan),
+                );
+              })),
             ],
           ),
           const SizedBox(
@@ -73,13 +81,16 @@ class ResultWidget extends StatelessWidget {
                       .copyWith(color: lightGrayishCyan, fontSize: 14),
                 )
               ]),
-              Text(
-                '\$50.80',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: 26, color: strongCyan),
-              )
+              BlocBuilder<TipCalculatorCubit, TipCaclulatorState>(
+                  builder: ((context, state) {
+                return Text(
+                  '\$${state.totalPerPerson}',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 26, color: strongCyan),
+                );
+              })),
             ],
           ),
           const SizedBox(
@@ -87,7 +98,8 @@ class ResultWidget extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              //TODO:reset the controller values to zero
+              context.read<TipCalculatorCubit>().reset();
+              reset();
             },
             child: Text(
               'Reset',

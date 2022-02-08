@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import '../../const.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({Key? key, required this.customController})
+  const CustomButton(
+      {Key? key, required this.controller, required this.onChange})
       : super(key: key);
-
-  final TextEditingController customController;
+  final Function onChange;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: const InputDecoration(
         constraints: BoxConstraints(maxHeight: 56),
-        hintText: 'Custom',
         prefixIconConstraints: BoxConstraints(
             maxHeight: 20, maxWidth: 20, minHeight: 20, minWidth: 20),
         border: OutlineInputBorder(borderSide: BorderSide.none),
@@ -25,9 +25,14 @@ class CustomButton extends StatelessWidget {
           ),
       textAlign: TextAlign.right,
       keyboardType: TextInputType.number,
-      controller: customController,
+      controller: controller,
       onChanged: (value) {
-        //TODO:takes custom percentage and need to implement it
+        onChange();
+      },
+      onTap: () {
+        if (controller.text == 'Custom') {
+          controller.clear();
+        }
       },
     );
   }
