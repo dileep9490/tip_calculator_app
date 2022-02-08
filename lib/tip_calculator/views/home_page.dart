@@ -71,6 +71,7 @@ class _HomePageViewState extends State<_HomePageView> {
     customController.text = 'Custom';
     peopleController.clear();
     id = 0;
+    setState(() {});
   }
 
   void changePercentage(int val) {
