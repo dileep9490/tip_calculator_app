@@ -1,16 +1,22 @@
-# tip_calculator_app
+# Tip Calculator App
 
-A new Flutter project.
+This is a solution to the [Tip calculator app Challenge](https://www.frontendmentor.io/challenges/tip-calculator-app-ugJNGbJUX).
 
-## Getting Started
+## Table of contents
 
-This project is a starting point for a Flutter application.
+- [The challenge](#the-challenge)
+- [Screenshot](#screenshot)
 
-A few resources to get you started if this is your first Flutter project:
+### The challenge
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Users should be able to:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- To calculate the tip
+- To show the tip amount and total amount for a person
+- to create UI like this
+
+![](design/mobile-design.jpg)
+
+### Screenshot of my App
+
+![](design/Screenshot.png)
